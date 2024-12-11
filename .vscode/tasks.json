@@ -1,0 +1,54 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Module",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++23",
+                "-fmodules-ts",
+                "-c",
+                "DataStruct.ixx",
+                "-o",
+                "build/DataStruct.o"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Build Module",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++23",
+                "-fmodules-ts",
+                "-c",
+                "test.ixx",
+                "-o",
+                "build/test.o"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Build and Link",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++23",
+                "-fmodules-ts",
+                "main.cpp",
+                "build/DataStruct.o",
+                "build/test.o",
+                "-o",
+                "build/main"
+            ],
+            "group": "build",
+            "dependsOn": [
+                "Build Module"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}

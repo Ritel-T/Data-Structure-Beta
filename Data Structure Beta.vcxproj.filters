@@ -13,25 +13,36 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\module">
+      <UniqueIdentifier>{39c6c2f7-a738-4400-bfd5-684717f65afa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DataStruct.ixx">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="module\DataStruct.ixx">
+      <Filter>Source Files\module</Filter>
     </ClCompile>
-    <ClCompile Include="DataStruct-Vector.ixx">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="module\DataStruct-Array.ixx">
+      <Filter>Source Files\module</Filter>
     </ClCompile>
-    <ClCompile Include="DataStruct-Array.ixx">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="module\DataStruct-Iterator.ixx">
+      <Filter>Source Files\module</Filter>
     </ClCompile>
-    <ClCompile Include="DataStruct-Iterator.ixx">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="module\DataStruct-Vector.ixx">
+      <Filter>Source Files\module</Filter>
+    </ClCompile>
+    <ClCompile Include="module\DataStruct-Print.ixx">
+      <Filter>Source Files\module</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="header\ds-mod-preheader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

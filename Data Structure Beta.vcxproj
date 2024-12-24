@@ -108,6 +108,7 @@
       <LanguageStandard_C>stdclatest</LanguageStandard_C>
       <BuildStlModules>true</BuildStlModules>
       <EnableModules>false</EnableModules>
+      <AdditionalIncludeDirectories>$(ProjectDir)header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,14 +135,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DataStruct-Array.ixx" />
-    <ClCompile Include="DataStruct-Vector.ixx" />
-    <ClCompile Include="DataStruct.ixx" />
-    <ClCompile Include="DataStruct-Iterator.ixx" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="module\DataStruct-Array.ixx" />
+    <ClCompile Include="module\DataStruct-Print.ixx" />
+    <ClCompile Include="module\DataStruct-Iterator.ixx" />
+    <ClCompile Include="module\DataStruct-Vector.ixx" />
+    <ClCompile Include="module\DataStruct.ixx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="header\ds-mod-preheader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

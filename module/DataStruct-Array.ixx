@@ -12,7 +12,7 @@ import :Print;
 namespace ds {
 	// Array
 	export template <typename T, size_t N>
-	_DS_Container class Array : public Iterable<T>, public Printable<T>
+	_DS_Container class Array : public Printable<T>
 	{
 	public:
 		Array() : m_data() {}
@@ -30,6 +30,17 @@ namespace ds {
 		Array(Array&& other) noexcept : m_data(std::exchange(other.m_data, nullptr)) {}
 		~Array() = default;
 
+		func operator=(Array const& other) -> Array& {
+			if (this == &other) return *this;
+			std::copy(other.m_data, other.m_data + N, m_data);
+			return *this;
+		}
+		func operator=(Array&& other) noexcept -> Array& {
+			if (this == &other) return *this;
+			delete[] m_data;
+			m_data = std::exchange(other.m_data, nullptr);
+			return *this;
+		}
 
 		func data()			 -> T*		 { return m_data; }
 		func data() nomodify -> T const* { return m_data; }
@@ -46,8 +57,8 @@ namespace ds {
 	private:
 		T m_data[N];
 
-		func __begin_ptr()			 -> T* override { return m_data; }
-		func __end_ptr()			 -> T* override { return m_data + N; }
+		func __begin_ptr()			 -> T*		 override { return m_data; }
+		func __end_ptr()			 -> T*		 override { return m_data + N; }
 		func __begin_ptr()	nomodify -> T const* override { return m_data; }
 		func __end_ptr()	nomodify -> T const* override { return m_data + N; }
 

@@ -7,7 +7,7 @@ export module DataStruct:Print;
 import std;
 
 namespace ds {
-
+	/*
 	export func range(std::ranges::range auto&& container) -> std::ranges::range auto {
 		return std::ranges::subrange(container.begin(), container.end());
 	}
@@ -72,5 +72,5 @@ namespace ds {
 		func virtual size()	nomodify -> size_t = 0;
 
 	}; // class Printable
-
+	*/
 } // namespace ds

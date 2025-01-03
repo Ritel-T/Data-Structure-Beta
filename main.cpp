@@ -1,39 +1,100 @@
 // main.cpp
+#include <iostream>
+#include <vector>
+#include <ranges>
+#include <chrono>
+#include <concepts>
+#include <algorithm>
+#include <iterator>
+#include <initializer_list>
+#include <stdexcept>
+#include <utility>
+#include <type_traits>
+#include <string>
 
-import std;
 import DataStruct;
 
-auto incr_prt(std::ranges::range auto&& rng)
-	requires requires { ++*rng.begin(); }
-{
-	std::print("Addable: ");
-	for (auto& elem : rng) {
-		++elem;
-		std::print("{} ", elem);
-	}
-	std::println("");
-}
+//auto incr_prt(std::ranges::range auto&& rng)
+//	requires requires { ++*rng.begin(); }
+//{
+//	std::println("Addable: ");
+//	for (auto& elem : rng) {
+//		++elem;
+//		std::print("{} ", elem);
+//	}
+//	std::println("");
+//}
 
-auto incr_prt(std::ranges::range auto&& rng)
+auto incr_prt(std::ranges::range auto const& rng)
 {
 	std::print("Readable: ");
     for (auto const& elem : rng) {
-        std::print("{} ", elem);
+        //std::print("{} ", elem);
+		std::cout << elem << " ";
     }
     std::println("");
 }
 
 int main() {
-	ds::Vector<int> v{ 1,2,3,4,5,6,7,8,9,10,11,12,13 };
-	const ds::Vector<int> cv{ 1,2,3,4,5 };
+	using namespace std::ranges::views;
 
-	auto subv = v
-		| std::views::transform([](auto const& elem) { return elem * elem; })
-		| std::views::filter([](auto const& elem) { return elem % 2 == 0; });
+	ds::Vector<int> myv{ 1,2,3,4,5,6,7,8,9,10 };
+	ds::Vector<int> const cmyv{ 1,2,3,4,5,6,7,8,9,10 };
+	static_assert(std::ranges::range<decltype(myv)>);  // OK
+	static_assert(std::ranges::range<decltype(cmyv)>); // OK
 
-	ds::println(subv);
+	static_assert(std::input_iterator<decltype(myv.begin())>);
+	static_assert(std::input_iterator<decltype(myv.cbegin())>);
+	static_assert(std::ranges::range<ds::Vector<int> const>);  // All OK
+
+	auto it = myv.begin();
+	std::advance(it, 5);
+	auto cit = cmyv.begin();
+	std::advance(cit, 5);
+	std::print("{} {}\n", *it, *cit); // OK
+
+	auto subr = cmyv | drop(5);
+	static_assert(std::ranges::range<decltype(subr)>); // OK
+
+	auto const_subr = cmyv | drop(5);
+	static_assert(std::ranges::range<decltype(const_subr)>); // Error
+
+	auto const& subr_cref = subr;
+	//static_assert(std::ranges::range<decltype(subr_cref)>); // Error
+
+	//for (auto it = subr_cref.begin(); it != subr_cref.end(); ++it) {
+	//	std::print("{} ", *it);
+	//}
+
+	//for (auto const& elem : subrc2) {
+	//	std::print("{} ", elem);
+	//}
+
+
+	//incr_prt(subr);
+	//ds::print(subr);
+
+	//void test2();
+	//test2();
+
+	//auto subr = myv.subrange(2,5);
+	//incr_prt(subr);
+	//incr_prt(subr | std::views::transform([](auto& e) -> auto& {
+	//	std::println("transform: {} *= 3", e);
+	//	return e *= 3;
+	//}));
+
+	//for (auto it = myv.begin(); it != myv.end(); ++it) {
+	//	std::print("{} ", *it);
+	//}
+
+	//auto subv = myv
+	//	| std::views::transform([](auto const& elem) { return elem * elem; })
+	//	| std::views::filter([](auto const& elem) { return elem % 2 == 0; });
+
+	//ds::println(myv);
 }
-
+/*
 void test0()
 {
 	auto s1 = std::chrono::high_resolution_clock::now();
@@ -115,3 +176,4 @@ void test2() {
 		std::print("{} ", elem);
 	}
 }
+*/

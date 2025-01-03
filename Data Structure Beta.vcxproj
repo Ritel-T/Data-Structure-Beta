@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="module\DataStruct-Array.ixx" />
+    <ClCompile Include="module\DataStruct-List.ixx" />
     <ClCompile Include="module\DataStruct-Print.ixx" />
     <ClCompile Include="module\DataStruct-Iterator.ixx" />
     <ClCompile Include="module\DataStruct-Vector.ixx" />

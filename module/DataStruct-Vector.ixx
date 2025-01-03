@@ -12,7 +12,7 @@ import :Print;
 namespace ds {
 	// Vector
 	export template <typename T>
-	_DS_Container class Vector : public Iterable<T>, public Printable<T>
+	_DS_Container class Vector : public Printable<T>
 	{
 	public:
 		Vector() : m_data(nullptr), m_size(0), m_cap(0) {}
@@ -32,6 +32,23 @@ namespace ds {
 			m_cap(std::exchange(other.m_cap, 0)) {};
 		~Vector() { delete[] m_data; }
 
+		func operator=(const Vector& other) -> Vector& {
+			if (this == &other) return *this;
+			delete[] m_data;
+			m_data = new T[other.m_cap];
+			m_size = other.m_size;
+			m_cap  = other.m_cap;
+			std::copy(other.m_data, other.m_data + other.m_size, m_data);
+			return *this;
+		}
+		func operator=(Vector&& other) noexcept -> Vector& {
+			if (this == &other) return *this;
+			delete[] m_data;
+			m_data = std::exchange(other.m_data, nullptr);
+			m_size = std::exchange(other.m_size, 0);
+			m_cap  = std::exchange(other.m_cap , 0);
+			return *this;
+		}
 
 		func push_back(T const& val) -> void {
 			if (m_size >= m_cap)
@@ -89,16 +106,6 @@ namespace ds {
 
 		func operator[](size_t idx)			 -> T&		 { return m_data[idx]; }
 		func operator[](size_t idx) nomodify -> const T& { return m_data[idx]; }
-
-		func operator=(const Vector& other) -> Vector& {
-			if (this == &other) return *this;
-			delete[] m_data;
-			m_data = new T[other.m_cap];
-			m_size = other.m_size;
-			m_cap = other.m_cap;
-			std::copy(other.m_data, other.m_data + other.m_size, m_data);
-			return *this;
-		}
 
 	private:
 		T* m_data;
